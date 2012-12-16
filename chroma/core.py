@@ -99,6 +99,10 @@ class Color(object):
 
         return '#' + r + g + b
 
+    @hex.setter
+    def hex(self, color_value):
+        self.rgb = self._rgb_from_hex(color_value)
+
     #
     # INTERNAL
     #
