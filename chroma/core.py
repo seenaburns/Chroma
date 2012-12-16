@@ -18,14 +18,14 @@ class Color(object):
     by one of the properties
     """
     def __init__(self, color_value = '#FFFFFF', format = 'HEX'):
-        # self.color is the main storage for the color in the format of a
-        # tuple of RGB float
         if format == 'HEX':
             self.rgb = self._rgb_from_hex(color_value)
 
     #
     # RGB
     #
+    # self.color is the main storage for the color in the format of a
+    # tuple of RGB float
     @property
     def rgb(self):
         return self.color
@@ -54,8 +54,9 @@ class Color(object):
 
     @property
     def hls256(self):
-        r, g, b = self.rgb256
-        return colorsys.rgb_to_hls(r, g, b)
+        r, g, b = self.rgb
+        hls = colorsys.rgb_to_hls(r, g, b)
+        return map(lambda x: int(x*255), hls)
 
     @hls.setter
     def hls(self, color_tuple):
@@ -76,8 +77,9 @@ class Color(object):
 
     @property
     def hsv256(self):
-        r, g, b = self.rgb256
-        return colorsys.rgb_to_hsv(r, g, b)
+        r, g, b = self.rgb
+        hsv = colorsys.rgb_to_hsv(r, g, b)
+        return map(lambda x: int(x*255), hsv)
 
     @hsv.setter
     def hsv(self, color_tuple):
