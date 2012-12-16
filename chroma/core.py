@@ -27,6 +27,9 @@ class Color(object):
         if format == 'HEX':
             self.color = self._rgb_from_hex(color_value)
 
+    #
+    # RGB
+    #
     @property
     def rgb(self):
         return self.color
@@ -35,6 +38,35 @@ class Color(object):
     def rgb256(self):
         return map(lambda x: int(x*255), self.color)
 
+    #
+    # HLS
+    #
+    @property
+    def hls(self):
+        r, g, b = self.color
+        return colorsys.rgb_to_hls(r, g, b)
+
+    @property
+    def hls256(self):
+        r, g, b = self.rgb256
+        return colorsys.rgb_to_hls(r, g, b)
+
+    #
+    # HSV
+    #
+    @property
+    def hsv(self):
+        r, g, b = self.color
+        return colorsys.rgb_to_hsv(r, g, b)
+
+    @property
+    def hsv256(self):
+        r, g, b = self.rgb256
+        return colorsys.rgb_to_hsv(r, g, b)
+
+    #
+    # HEX
+    #
     @property
     def hex(self):
         r = self._float_to_hex(self.color[0])
@@ -43,6 +75,9 @@ class Color(object):
 
         return '#' + r + g + b
 
+    #
+    # INTERNAL
+    #
     def _rgb_from_hex(self, color_value):
         hex_value = str(color_value)
 
