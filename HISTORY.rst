@@ -1,6 +1,13 @@
 History
 -------
 
+0.1.1 (2012-12-16)
+------------------
+- HLS, HSV Support
+- API changes (setter methods)
+- Bug Fixes
+- Update to README
+
 0.1.0 (2012-12-15)
 ------------------
 - Initial Release
