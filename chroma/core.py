@@ -32,13 +32,13 @@ class Color(object):
 
     @property
     def rgb256(self):
-        return map(lambda x: int(x*255), self.color)
+        return tuple(map(lambda x: int(x*255), self.color))
 
     @rgb.setter
     def rgb(self, color_tuple):
         """Used as main setter (rgb256, hls, hls256, hsv, hsv256)"""
         # Check bounds
-        self.color = map(self._apply_float_bounds, color_tuple)
+        self.color = tuple(map(self._apply_float_bounds, color_tuple))
 
     @rgb256.setter
     def rgb256(self, color_tuple):
@@ -56,7 +56,7 @@ class Color(object):
     def hls256(self):
         r, g, b = self.rgb
         hls = colorsys.rgb_to_hls(r, g, b)
-        return map(lambda x: int(x*255), hls)
+        return tuple(map(lambda x: int(x*255), hls))
 
     @hls.setter
     def hls(self, color_tuple):
@@ -79,7 +79,7 @@ class Color(object):
     def hsv256(self):
         r, g, b = self.rgb
         hsv = colorsys.rgb_to_hsv(r, g, b)
-        return map(lambda x: int(x*255), hsv)
+        return tuple(map(lambda x: int(x*255), hsv))
 
     @hsv.setter
     def hsv(self, color_tuple):
