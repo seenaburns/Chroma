@@ -22,10 +22,24 @@ Quickstart
     color.rgb256 = (255, 0, 0)
     color.hls = (0.0, 1.0, 0.0)
 
-Currently supports RGB, HLS, HSV and HEX (#RRGGBB) coordinates.
+Currently Supprorts
+-------------------
+- Hex (#rrggbb)
+- RGB (float, 256)
+- HLS (float, 256)
+- HSV (float, 256)
+
+Roadmap
+-------
+- Alpha support
+- More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
+- Construct color object with RGB / HLS / HSV
+
+Installation
+------------
+::
+
+    pip install tungsten
 
 BSD licensed. Hosted on `Github <https://github.com/seenaburns/Chroma>`_ and available on PyPI.
 
-Installation: ::
-
-    pip install tungsten
