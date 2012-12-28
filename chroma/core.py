@@ -18,14 +18,28 @@ class Color(object):
     by one of the properties
     """
     def __init__(self, color_value = '#FFFFFF', format = 'HEX'):
-        if format == 'HEX':
+        # Create Color object, handle a variety of inputs
+        # self.color is main storage for color format (tuple in RGB float form)
+        # HEX input takes string, RGB / HLS / HSV take tuples
+        if format.upper() == 'HEX':
             self.rgb = self._rgb_from_hex(color_value)
-
+        elif format.upper() == 'RGB':
+            self.rgb = color_value
+        elif format.upper() == 'RGB256':
+            self.rgb256 = color_value
+        elif format.upper() == 'HLS':
+            self.hls = color_value
+        elif format.upper() == 'HLS256':
+            self.hls256 = color_value
+        elif format.upper() == 'HSV':
+            self.hsv = color_value
+        elif format.upper() == 'HSV256':
+            self.hsv256 = color_value
+        else:
+            raise Exception('Unsported chroma.Color format: %s' % (format))
     #
     # RGB
     #
-    # self.color is the main storage for the color in the format of a
-    # tuple of RGB float
     @property
     def rgb(self):
         return self.color
@@ -42,7 +56,7 @@ class Color(object):
 
     @rgb256.setter
     def rgb256(self, color_tuple):
-        self.rgb = map(lambda x: x/255.0, color_tuple)
+        self.rgb = map(lambda x: x / 255.0, color_tuple)
 
     #
     # HLS
@@ -56,7 +70,7 @@ class Color(object):
     def hls256(self):
         r, g, b = self.rgb
         hls = colorsys.rgb_to_hls(r, g, b)
-        return tuple(map(lambda x: int(x*255), hls))
+        return tuple(map(lambda x: int(x * 255), hls))
 
     @hls.setter
     def hls(self, color_tuple):
@@ -65,7 +79,7 @@ class Color(object):
 
     @hls256.setter
     def hls256(self, color_tuple):
-        self.hls = map(lambda x: x/255.0, color_tuple)
+        self.hls = map(lambda x: x / 255.0, color_tuple)
 
     #
     # HSV

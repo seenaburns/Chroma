@@ -34,6 +34,7 @@ Roadmap
 - Alpha support
 - More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
 - Construct color object with RGB / HLS / HSV
+- Color dectection in images
 
 Installation
 ------------
