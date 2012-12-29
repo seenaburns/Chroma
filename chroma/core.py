@@ -122,8 +122,13 @@ class Color(object):
         r = self._float_to_hex(self.color[0])
         g = self._float_to_hex(self.color[1])
         b = self._float_to_hex(self.color[2])
+        rgb = '#' + r + g + b
 
-        return '#' + r + g + b
+        # Append alpha hex if necessary
+        if self.alpha is not None:
+            rgb += self._float_to_hex(self.alpha)
+
+        return rgb
 
     @hex.setter
     def hex(self, color_value):
