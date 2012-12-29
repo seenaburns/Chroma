@@ -2,3 +2,4 @@ venv
 playground.py
 dist
 MANIFEST
+*.pyc

@@ -54,7 +54,7 @@ class Color(object):
     @property
     def rgb256(self):
         rgb = self._append_alpha_if_necessary(self.color)
-        return tuple(map(lambda x: int(x*255), rgb))
+        return tuple(map(lambda x: int(round(x*255)), rgb))
 
     @rgb.setter
     def rgb(self, color_tuple):
@@ -84,7 +84,7 @@ class Color(object):
         r, g, b = self.rgb
         hls = colorsys.rgb_to_hls(r, g, b)
         hls = self._append_alpha_if_necessary(hls)
-        return tuple(map(lambda x: int(x * 255), hls))
+        return tuple(map(lambda x: int(round(x*255)), hls))
 
     @hls.setter
     def hls(self, color_tuple):
@@ -99,7 +99,7 @@ class Color(object):
 
     @hls256.setter
     def hls256(self, color_tuple):
-        self.hls = map(lambda x: x / 255.0, color_tuple)
+        self.hls = map(lambda x: x/255.0, color_tuple)
 
     #
     # HSV
@@ -115,7 +115,7 @@ class Color(object):
         r, g, b = self.rgb
         hsv = colorsys.rgb_to_hsv(r, g, b)
         hsv = self._append_alpha_if_necessary(hsv)
-        return tuple(map(lambda x: int(x*255), hsv))
+        return tuple(map(lambda x: int(round(x*255)), hsv))
 
     @hsv.setter
     def hsv(self, color_tuple):
