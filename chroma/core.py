@@ -18,9 +18,14 @@ class Color(object):
     by one of the properties
     """
     def __init__(self, color_value = '#FFFFFF', format = 'HEX'):
-        # Create Color object, handle a variety of inputs
         # self.color is main storage for color format (tuple in RGB float form)
         # HEX input takes string, RGB / HLS / HSV take tuples
+
+        self.color = (1.0, 1.0, 1.0)
+        # If alpha is None, it is unset and assumed to be RGB
+        # If non-negative, it has been set and use RGBA, HLSA, etc
+        self.alpha = None
+
         if format.upper() == 'HEX':
             self.rgb = self._rgb_from_hex(color_value)
         elif format.upper() == 'RGB':
@@ -40,19 +45,26 @@ class Color(object):
     #
     # RGB
     #
+    # RGB is used as base, other formats will modify input into RGB and invoke
+    # RGB getters / setters
     @property
     def rgb(self):
-        return self.color
+        return self._append_alpha_if_necessary(self.color)
 
     @property
     def rgb256(self):
-        return tuple(map(lambda x: int(x*255), self.color))
+        rgb = self._append_alpha_if_necessary(self.color)
+        return tuple(map(lambda x: int(x*255), rgb))
 
     @rgb.setter
     def rgb(self, color_tuple):
         """Used as main setter (rgb256, hls, hls256, hsv, hsv256)"""
         # Check bounds
-        self.color = tuple(map(self._apply_float_bounds, color_tuple))
+        self.color = tuple(map(self._apply_float_bounds, color_tuple[:3]))
+
+        # Include alpha if necessary
+        if len(color_tuple) > 3:
+            self.alpha = self._apply_float_bounds(color_tuple[3])
 
     @rgb256.setter
     def rgb256(self, color_tuple):
@@ -64,18 +76,26 @@ class Color(object):
     @property
     def hls(self):
         r, g, b = self.color
-        return colorsys.rgb_to_hls(r, g, b)
+        hls = colorsys.rgb_to_hls(r, g, b)
+        return self._append_alpha_if_necessary(hls)
 
     @property
     def hls256(self):
         r, g, b = self.rgb
         hls = colorsys.rgb_to_hls(r, g, b)
+        hls = self._append_alpha_if_necessary(hls)
         return tuple(map(lambda x: int(x * 255), hls))
 
     @hls.setter
     def hls(self, color_tuple):
-        h, l, s = color_tuple
-        self.rgb = colorsys.hls_to_rgb(h, l, s)
+        h, l, s = color_tuple[:3]
+        rgb = colorsys.hls_to_rgb(h, l, s)
+
+        # Append alpha if included
+        if len(color_tuple) > 3:
+            rgb += (color_tuple[3],)
+
+        self.rgb = rgb
 
     @hls256.setter
     def hls256(self, color_tuple):
@@ -87,18 +107,26 @@ class Color(object):
     @property
     def hsv(self):
         r, g, b = self.color
-        return colorsys.rgb_to_hsv(r, g, b)
+        hsv = colorsys.rgb_to_hsv(r, g, b)
+        return self._append_alpha_if_necessary(hsv)
 
     @property
     def hsv256(self):
         r, g, b = self.rgb
         hsv = colorsys.rgb_to_hsv(r, g, b)
+        hsv = self._append_alpha_if_necessary(hsv)
         return tuple(map(lambda x: int(x*255), hsv))
 
     @hsv.setter
     def hsv(self, color_tuple):
         h, s, v = color_tuple
-        self.rgb = colorsys.hsv_to_rgb(color_tuple)
+        rgb = colorsys.hsv_to_rgb(color_tuple)
+
+        # Append alpha if included
+        if len(color_tuple) > 3:
+            rgb += (color_tuple[3],)
+
+        self.rgb = rgb
 
     @hsv256.setter
     def hsv256(self, color_tuple):
@@ -159,3 +187,10 @@ class Color(object):
             return 1.0
 
         return float(coordinate)
+
+    def _append_alpha_if_necessary(self, color_tuple):
+        """Return color_tuple with alpha if self.alpha is not None"""
+        if self.alpha is not None:
+            return color_tuple + (self.alpha,)
+        return color_tuple
+
