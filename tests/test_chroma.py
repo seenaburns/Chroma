@@ -42,13 +42,13 @@ class ChromaTestSuite(unittest.TestCase):
         self.assertEqual(chroma.Color((85, 119, 153), 'RGB256').rgb256, rgb256_value)
 
         # HLS
-        self.assertEqual(chroma.Color((0.82, 0.47, 0.29), 'HLS').rgb256, rgb256_value)
+        self.assertEqual(chroma.Color((0.583, 0.467, 0.286), 'HLS').rgb256, rgb256_value)
 
         # HLS256
         self.assertEqual(chroma.Color((210, 120, 74), 'HLS256').rgb256, rgb256_value)
 
         # HSV
-        self.assertEqual(chroma.Color((0.82, 0.17, 0.24), 'HSV').rgb256, rgb256_value)
+        self.assertEqual(chroma.Color((0.58, 0.17, 0.24), 'HSV').rgb256, rgb256_value)
 
         # HSV256
         self.assertEqual(chroma.Color((210, 44, 60), 'HSV256').rgb256, rgb256_value)
