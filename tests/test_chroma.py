@@ -31,30 +31,18 @@ class ChromaTestSuite(unittest.TestCase):
         rgb256_value = (85,119,153)
         # Default format
         self.assertEqual(chroma.Color('#557799').rgb256, rgb256_value)
-
         # HEX
         self.assertEqual(chroma.Color('#557799', 'HEX').rgb256, rgb256_value)
-
         # RGB
         self.assertEqual(chroma.Color((0.333, 0.465, 0.6), 'RGB').rgb256, rgb256_value)
-
         # RGB256
         self.assertEqual(chroma.Color((85, 119, 153), 'RGB256').rgb256, rgb256_value)
-
         # HLS
         self.assertEqual(chroma.Color((0.583, 0.467, 0.286), 'HLS').rgb256, rgb256_value)
-
-        # HLS256
-        self.assertEqual(chroma.Color((210, 120, 74), 'HLS256').rgb256, rgb256_value)
-
         # HSV
-        self.assertEqual(chroma.Color((0.58, 0.17, 0.24), 'HSV').rgb256, rgb256_value)
-
-        # HSV256
-        self.assertEqual(chroma.Color((210, 44, 60), 'HSV256').rgb256, rgb256_value)
-
+        self.assertEqual(chroma.Color((0.583, 0.444, 0.60), 'HSV').rgb256, rgb256_value)
         # Error
-        self.assertRaises(chroma.Color((210, 44, 60), 'ERROR'))
+        self.assertRaises(Exception, chroma.Color, (210, 44, 60), 'ERROR')
 
 
 if __name__ == '__main__':

@@ -34,14 +34,10 @@ class Color(object):
             self.rgb256 = color_value
         elif format.upper() == 'HLS':
             self.hls = color_value
-        elif format.upper() == 'HLS256':
-            self.hls256 = color_value
         elif format.upper() == 'HSV':
             self.hsv = color_value
-        elif format.upper() == 'HSV256':
-            self.hsv256 = color_value
         else:
-            raise Exception('Unsported chroma.Color format: %s' % (format))
+            raise Exception('Unsupported chroma.Color format: %s' % (format))
     #
     # RGB
     #
@@ -75,16 +71,13 @@ class Color(object):
     #
     @property
     def hls(self):
+        """
+        HLS: (Hue°, Lightness%, Saturation%)
+        Hue given as percent of 360, Lightness and Saturation given as percent
+        """
         r, g, b = self.color
         hls = colorsys.rgb_to_hls(r, g, b)
         return self._append_alpha_if_necessary(hls)
-
-    @property
-    def hls256(self):
-        r, g, b = self.rgb
-        hls = colorsys.rgb_to_hls(r, g, b)
-        hls = self._append_alpha_if_necessary(hls)
-        return tuple(map(lambda x: int(round(x*255)), hls))
 
     @hls.setter
     def hls(self, color_tuple):
@@ -97,40 +90,29 @@ class Color(object):
 
         self.rgb = rgb
 
-    @hls256.setter
-    def hls256(self, color_tuple):
-        self.hls = map(lambda x: x/255.0, color_tuple)
-
     #
     # HSV
     #
     @property
     def hsv(self):
+        """
+        HSV: (Hue°, Saturation%, Value%)
+        Hue given as percent of 360, Saturation and Value given as percent
+        """
         r, g, b = self.color
         hsv = colorsys.rgb_to_hsv(r, g, b)
         return self._append_alpha_if_necessary(hsv)
 
-    @property
-    def hsv256(self):
-        r, g, b = self.rgb
-        hsv = colorsys.rgb_to_hsv(r, g, b)
-        hsv = self._append_alpha_if_necessary(hsv)
-        return tuple(map(lambda x: int(round(x*255)), hsv))
-
     @hsv.setter
     def hsv(self, color_tuple):
         h, s, v = color_tuple
-        rgb = colorsys.hsv_to_rgb(color_tuple)
+        rgb = colorsys.hsv_to_rgb(h, s, v)
 
         # Append alpha if included
         if len(color_tuple) > 3:
             rgb += (color_tuple[3],)
 
         self.rgb = rgb
-
-    @hsv256.setter
-    def hsv256(self, color_tuple):
-        self.hsv = map(lambda x: x/255.0, color_tuple)
 
     #
     # HEX
