@@ -28,12 +28,11 @@ Currently Supprorts
 - RGB (float, 256)
 - HLS (float, 256)
 - HSV (float, 256)
+- Alpha
 
 Roadmap
 -------
-- Alpha support
 - More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
-- Construct color object with RGB / HLS / HSV
 - Color dectection in images
 
 Installation
