@@ -77,3 +77,4 @@ Roadmap
 -------
 - More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
 - Color dectection in images
+- Direct modification of Red, Green, Blue, Lightness, Hue, Saturation, Value
