@@ -1,6 +1,13 @@
 History
 -------
 
+0.1.2 (2012-12-28)
+------------------
+- Remove HLS256, HSV256 (critical bug)
+- Alpha support
+- Add RGB, RGB256, HLS, HSV as formats for Color initialization
+- Bug fixes
+
 0.1.1 (2012-12-16)
 ------------------
 - HLS, HSV Support
