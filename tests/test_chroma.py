@@ -59,7 +59,8 @@ class ChromaTestSuite(unittest.TestCase):
         self.c.alpha = None
         self.assertEqual(self.c.rgb256, rgb256_value)
         self.assertEqual(len(self.c.hls), 3)
-
+        self.c = chroma.Color('#557799FF')
+        self.assertEqual(self.c.rgb256, rgba256_value)
 
 if __name__ == '__main__':
     # Run unit tests

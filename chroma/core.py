@@ -140,14 +140,22 @@ class Color(object):
             hex_value = hex_value[1:]
 
         # Check length
-        if len(hex_value) != 6:
+        # 6: 6 digit hex
+        # 8: 6 digit hex + alpha
+        if len(hex_value) not in [6, 8]:
             raise Exception('Invalid Hex Input: %s' % (color_value))
 
         # Return rgb from hex
         try:
-            return (int(hex_value[0:2], 16) / 255.0,
+            rgb =  (int(hex_value[0:2], 16) / 255.0,
                     int(hex_value[2:4], 16) / 255.0,
                     int(hex_value[4:6], 16) / 255.0)
+
+            # Append alpha if exists
+            if len(hex_value) == 8:
+                rgb += (int(hex_value[6:8], 16) / 255.0,)
+
+            return rgb
         except Exception, e:
             raise Exception('Invalid Hex Input: %s' % (color_value))
 
