@@ -21,7 +21,7 @@ import chroma
 
 class ChromaTestSuite(unittest.TestCase):
     def setUp(self):
-        c = chroma.Color()
+        self.c = chroma.Color()
 
     def test_color_initialization(self):
         """
@@ -43,6 +43,22 @@ class ChromaTestSuite(unittest.TestCase):
         self.assertEqual(chroma.Color((0.583, 0.444, 0.60), 'HSV').rgb256, rgb256_value)
         # Error
         self.assertRaises(Exception, chroma.Color, (210, 44, 60), 'ERROR')
+
+    def test_alpha(self):
+        """
+        Test alpha support with various formats
+        """
+        rgb256_value = (85,119,153)
+        rgba256_value = (85,119,153, 255)
+        alpha_value = 1.0
+
+        self.assertEqual(self.c.alpha, None)
+        self.c.rgb256 = rgba256_value
+        self.assertEqual(self.c.alpha, alpha_value)
+        self.assertEqual(self.c.hsv[3], alpha_value)
+        self.c.alpha = None
+        self.assertEqual(self.c.rgb256, rgb256_value)
+        self.assertEqual(len(self.c.hls), 3)
 
 
 if __name__ == '__main__':
