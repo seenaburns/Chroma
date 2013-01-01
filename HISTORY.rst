@@ -1,6 +1,10 @@
 History
 -------
 
+0.1.3 (2013-01-01)
+------------------
+- Direct modification of color coordinates
+
 0.1.2 (2012-12-28)
 ------------------
 - Remove HLS256, HSV256 (critical bug)

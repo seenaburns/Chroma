@@ -24,6 +24,20 @@ Quickstart
 
 BSD licensed. Hosted on `Github <https://github.com/seenaburns/Chroma>`_ and available on PyPI.
 
+Currently Supports
+-------------------
+- Hex (#rrggbb, #rrggbbaa)
+- RGB (float, 256)
+- HLS (float)
+- HSV (float)
+- Alpha
+- Direct modification of Red, Green, Blue, Lightness, Hue, Saturation (HLS, HSV), Value
+
+Roadmap
+-------
+- More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
+- Color dectection in images
+
 Documentation
 -------------
 Install Chroma with Pip:
@@ -64,17 +78,15 @@ Chroma Colors also support alpha. A Color object's alpha is set to None by defau
     c.alpha = None
     c.rgb  # (0.3333, 0.4666, 0.6)
 
+To simplify modifying color values, Chroma supports direct modification of color coordinates.
+::
+    c.red *= 1.1
+    c.green *= 1.1
+    c.blue *= 1.1
 
-Currently Supports
--------------------
-- Hex (#rrggbb, #rrggbbaa)
-- RGB (float, 256)
-- HLS (float)
-- HSV (float)
-- Alpha
+    c.hue *= 1.1
+    c.lightness *= 1.1
+    c.hls_saturation *= 1.1
 
-Roadmap
--------
-- More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
-- Color dectection in images
-- Direct modification of Red, Green, Blue, Lightness, Hue, Saturation, Value
+    c.value *= 1.1
+    c.hsv_saturation *= 1.1
