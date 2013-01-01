@@ -62,6 +62,31 @@ class ChromaTestSuite(unittest.TestCase):
         self.c = chroma.Color('#557799FF')
         self.assertEqual(self.c.rgb256, rgba256_value)
 
+    def test_coordinate_properties(self):
+        """
+        Test support for direct modification of coordinate values
+        """
+        self.c.rgb256 = (100,100,100)
+        self.c.red *= 1.1
+        self.c.green *= 1.1
+        self.c.blue *= 1.1
+        for val in self.c.rgb256:
+            self.assertAlmostEqual(val, 110)
+
+        self.c.hls = (0.5, 0.5, 0.5)
+        self.c.hue *= 1.1
+        self.c.hls_saturation *= 1.1
+        self.c.lightness *= 1.1
+        for val in self.c.hls:
+            self.assertAlmostEqual(val, 0.55)
+
+        self.c.hsv = (0.5, 0.5, 0.5)
+        self.c.hue *= 1.1
+        self.c.hsv_saturation *= 1.1
+        self.c.value *= 1.1
+        for val in self.c.hsv:
+            self.assertAlmostEqual(val, 0.55)
+
 if __name__ == '__main__':
     # Run unit tests
     unittest.main()

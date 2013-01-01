@@ -38,9 +38,12 @@ class Color(object):
             self.hsv = color_value
         else:
             raise Exception('Unsupported chroma.Color format: %s' % (format))
+
     #
+    # Properties
+    #
+
     # RGB
-    #
     # RGB is used as base, other formats will modify input into RGB and invoke
     # RGB getters / setters
     @property
@@ -66,9 +69,7 @@ class Color(object):
     def rgb256(self, color_tuple):
         self.rgb = map(lambda x: x / 255.0, color_tuple)
 
-    #
     # HLS
-    #
     @property
     def hls(self):
         """
@@ -90,9 +91,7 @@ class Color(object):
 
         self.rgb = rgb
 
-    #
     # HSV
-    #
     @property
     def hsv(self):
         """
@@ -114,9 +113,7 @@ class Color(object):
 
         self.rgb = rgb
 
-    #
     # HEX
-    #
     @property
     def hex(self):
         r = self._float_to_hex(self.color[0])
@@ -133,6 +130,77 @@ class Color(object):
     @hex.setter
     def hex(self, color_value):
         self.rgb = self._rgb_from_hex(color_value)
+
+    #
+    # Direct coordinate modification properties
+    # Getters not necessary, but available should to make API usage straightforward
+    #
+
+    # RGB
+    @property
+    def red(self):
+        return self.rgb[0]
+
+    @property
+    def green(self):
+        return self.rgb[1]
+
+    @property
+    def blue(self):
+        return self.rgb[2]
+
+    @red.setter
+    def red(self, value):
+        self.rgb = (value, self.rgb[1], self.rgb[2])
+
+    @green.setter
+    def green(self, value):
+        self.rgb = (self.rgb[0], value, self.rgb[2])
+
+    @blue.setter
+    def blue(self, value):
+        self.rgb = (self.rgb[0], self.rgb[1], value)
+
+    # Hue, Saturation, Lightness, Value
+    @property
+    def hue(self):
+        return self.hls[0]
+
+    @property
+    def hls_saturation(self):
+        return self.hls[2]
+
+    @property
+    def hsv_saturation(self):
+        return self.hsv[1]
+
+    @property
+    def lightness(self):
+        return self.hls[1]
+
+    @property
+    def value(self):
+        return self.hsv[2]
+
+    @hue.setter
+    def hue(self, value):
+        self.hls = (value, self.hls[1], self.hls[2])
+
+    @hls_saturation.setter
+    def hls_saturation(self, value):
+        self.hls = (self.hls[0], self.hls[1], value)
+
+    @hsv_saturation.setter
+    def hsv_saturation(self, value):
+        self.hsv = (self.hsv[0], value, self.hsv[2])
+
+    @lightness.setter
+    def lightness(self, value):
+        self.hls = (self.hls[0], value, self.hls[2])
+
+    @value.setter
+    def value(self, value):
+        self.hsv = (self.hsv[0], self.hsv[1], value)
 
     #
     # INTERNAL
