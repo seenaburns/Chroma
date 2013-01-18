@@ -47,6 +47,12 @@ class Color(object):
     def __ne__(self, other):
         return not (self == other)
 
+    # Representation
+    def __str__(self):
+        return self.hex
+
+    def __repr__(self):
+        return self.__str__()
 
     #
     # Properties
