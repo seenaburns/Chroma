@@ -39,6 +39,15 @@ class Color(object):
         else:
             raise Exception('Unsupported chroma.Color format: %s' % (format))
 
+    # Color equality: difference is less than a tolerance
+    # Use hex as the test for equals, as it is the greatest resolution without rounding issues
+    def __eq__(self, other):
+        return self.hex == other.hex
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
     #
     # Properties
     #

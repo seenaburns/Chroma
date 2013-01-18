@@ -44,6 +44,22 @@ class ChromaTestSuite(unittest.TestCase):
         # Error
         self.assertRaises(Exception, chroma.Color, (210, 44, 60), 'ERROR')
 
+    def test_comparison_methods(self):
+        """
+        Test equality and inequality magic methods
+        """
+        color1 = chroma.Color('#FF0000')
+        color2 = chroma.Color('#557799')
+        color3 = chroma.Color((85,119,153), 'RGB256')
+
+        # Equality
+        self.assertFalse(color1 == color2)
+        self.assertTrue(color2 == color3)
+
+        # Inequality
+        self.assertTrue(color1 != color2)
+        self.assertFalse(color2 != color3)
+
     def test_alpha(self):
         """
         Test alpha support with various formats
