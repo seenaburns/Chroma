@@ -47,6 +47,16 @@ class Color(object):
     def __ne__(self, other):
         return not (self == other)
 
+    # Override __getattr__ to warn users of Color.saturation property issues
+    def __getattr__(self, name):
+        if name is 'saturation':
+            # Warn user of hls / saturation
+            saturation_warning = 'Color.saturation is ambiguous. Use Color.hls_saturation or Color.hsv_saturation'
+            raise AttributeError(saturation_warning)
+        else:
+            # Default
+            raise AttributeError
+
     # Representation
     def __str__(self):
         return self.hex
