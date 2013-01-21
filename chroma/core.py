@@ -37,7 +37,7 @@ class Color(object):
         elif format.upper() == 'HSV':
             self.hsv = color_value
         else:
-            raise Exception('Unsupported chroma.Color format: %s' % (format))
+            raise ValueError('Unsupported chroma.Color format: %s' % (format))
 
     # Color equality: difference is less than a tolerance
     # Use hex as the test for equals, as it is the greatest resolution without rounding issues
@@ -241,7 +241,7 @@ class Color(object):
         # 6: 6 digit hex
         # 8: 6 digit hex + alpha
         if len(hex_value) not in [6, 8]:
-            raise Exception('Invalid Hex Input: %s' % (color_value))
+            raise ValueError('Invalid Hex Input: %s' % (color_value))
 
         # Return rgb from hex
         try:
@@ -255,7 +255,7 @@ class Color(object):
 
             return rgb
         except Exception, e:
-            raise Exception('Invalid Hex Input: %s' % (color_value))
+            raise ValueError('Invalid Hex Input: %s' % (color_value))
 
     def _float_to_hex(self, float_value):
         # Convert from float to in to hex number, remove '0x'
