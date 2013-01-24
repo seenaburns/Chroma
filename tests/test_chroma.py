@@ -103,6 +103,21 @@ class ChromaTestSuite(unittest.TestCase):
         for val in self.c.hsv:
             self.assertAlmostEqual(val, 0.55)
 
+    def test_color_functions(self):
+        """
+        Test color functions:
+            - Additive (Light) Mixing
+
+        Note: Wolfram Alpha used as reference for expected outputs
+        """
+        color1 = chroma.Color("#335577")
+        color2 = chroma.Color("#446688")
+        color3 = chroma.Color("#77BBFF")
+
+        # Additive mixing
+        self.assertEqual("#77BBFF", color1.additive_mix(color2).hex)
+        self.assertEqual("#BBFFFF", color3.additive_mix(color2).hex)
+
 if __name__ == '__main__':
     # Run unit tests
     unittest.main()

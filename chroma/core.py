@@ -227,6 +227,19 @@ class Color(object):
     def value(self, value):
         self.hsv = (self.hsv[0], self.hsv[1], value)
 
+
+    #
+    # Color Functions
+    # Note: color functions return a Color object when called directly
+    #
+
+    # Additive (Light) Mixing
+    def additive_mix(self, other):
+        rgb1 = self.rgb
+        rgb2 = other.rgb
+        rgb_mix = (rgb1[0] + rgb2[0], rgb1[1] + rgb2[1], rgb1[2] + rgb2[2])
+        return Color(rgb_mix, 'RGB')
+
     #
     # INTERNAL
     #
