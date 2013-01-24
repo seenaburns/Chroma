@@ -35,7 +35,6 @@ Currently Supports
 
 Roadmap
 -------
-- More Hex formats (#RGB, #RRRGGGBBB, #RRRRGGGGBBBB)
 - Coordinates (sRGB, YIQ, CMYK, and more)
 - Color harmonies: complementary, analogous, triad
 - Color mixing: addative, subtractive
