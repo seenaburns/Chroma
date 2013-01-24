@@ -278,7 +278,7 @@ class Color(object):
         if len(hex_value) == 1:
             hex_value = '0' + hex_value
 
-        return hex_value
+        return hex_value.upper()
 
     def _apply_float_bounds(self, coordinate):
         """Assure coordinate is a float between 0 to 1"""
