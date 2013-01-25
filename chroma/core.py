@@ -334,7 +334,8 @@ class Color(object):
 
     def _float_to_hex(self, float_value):
         # Convert from float to in to hex number, remove '0x'
-        hex_value = hex(int(float_value*255))[2:]
+        int_value = int(round(float_value*255))
+        hex_value = hex(int_value)[2:]
 
         # If hex is only one digit, pad with 0
         if len(hex_value) == 1:
