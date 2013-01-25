@@ -36,6 +36,8 @@ class Color(object):
             self.hls = color_value
         elif format.upper() == 'HSV':
             self.hsv = color_value
+        elif format.upper() == 'CMYK':
+            self.cmyk = color_value
         else:
             raise ValueError('Unsupported chroma.Color format: %s' % (format))
 
@@ -138,6 +140,34 @@ class Color(object):
 
         self.rgb = rgb
 
+    # CMYK
+    @property
+    def cmyk(self):
+        """CMYK: all returned in range 0.0 - 1.0"""
+        r, g, b = self.rgb
+        k = min((1 - r, 1 - g, 1 - b))
+
+        # Handle division by zero in case of black = 1
+        if k != 1:
+            c = (1 - r - k) / (1 - k)
+            m = (1 - g - k) / (1 - k)
+            y = (1 - b - k) / (1 - k)
+        else:
+            c, m, y = 0, 0, 0
+
+        cmyk = (c, m, y, k)
+
+        # Apply bound and return
+        return tuple(map(lambda x: self._apply_float_bounds(x), cmyk))
+
+    @cmyk.setter
+    def cmyk(self, color_value):
+        c, m, y, k = color_value
+        r = 1 - (c * (1 - k)) - k
+        g = 1 - (m * (1 - k)) - k
+        b = 1 - (y * (1 - k)) - k
+        self.rgb = (r, g, b)
+
     # HEX
     @property
     def hex(self):
@@ -227,6 +257,38 @@ class Color(object):
     def value(self, value):
         self.hsv = (self.hsv[0], self.hsv[1], value)
 
+    # Cyan, Magenta, Yellow, Black
+    @property
+    def cyan(self):
+        return self.cmyk[0]
+
+    @property
+    def magenta(self):
+        return self.cmyk[1]
+
+    @property
+    def yellow(self):
+        return self.cmyk[2]
+
+    @property
+    def black(self):
+        return self.cmyk[3]
+
+    @cyan.setter
+    def cyan(self, value):
+        self.cmyk = (value, self.cmyk[1], self.cmyk[2], self.cmyk[3])
+
+    @magenta.setter
+    def magenta(self, value):
+        self.cmyk = (self.cmyk[0], value, self.cmyk[2], self.cmyk[3])
+
+    @yellow.setter
+    def yellow(self, value):
+        self.cmyk = (self.cmyk[0], self.cmyk[1], value, self.cmyk[3])
+
+    @black.setter
+    def black(self, value):
+        self.cmyk = (self.cmyk[0], self.cmyk[1], self.cmyk[2], value)
 
     #
     # Color Functions
