@@ -117,6 +117,8 @@ class ChromaTestSuite(unittest.TestCase):
         # Additive mixing
         self.assertEqual("#77BBFF", color1.additive_mix(color2).hex)
         self.assertEqual("#BBFFFF", color3.additive_mix(color2).hex)
+        self.assertEqual("#FFFFFF", chroma.Color("#FFFFFF").additive_mix(chroma.Color("#000000")).hex)
+        self.assertEqual(color1.hex, color1.additive_mix(chroma.Color("#000000")).hex)
 
 if __name__ == '__main__':
     # Run unit tests
