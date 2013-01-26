@@ -24,7 +24,8 @@ class Color(object):
         self.color = (1.0, 1.0, 1.0)
         # If alpha is None, it is unset and assumed to be RGB
         # If non-negative, it has been set and use RGBA, HLSA, etc
-        self.alpha = None
+        # _alpha used internally
+        self._alpha = None
 
         if format.upper() == 'HEX':
             self.rgb = self._rgb_from_hex(color_value)
@@ -131,7 +132,7 @@ class Color(object):
 
     @hsv.setter
     def hsv(self, color_tuple):
-        h, s, v = color_tuple
+        h, s, v = color_tuple[:3]
         rgb = colorsys.hsv_to_rgb(h, s, v)
 
         # Append alpha if included
@@ -144,7 +145,7 @@ class Color(object):
     @property
     def cmyk(self):
         """CMYK: all returned in range 0.0 - 1.0"""
-        r, g, b = self.rgb
+        r, g, b = self.color
         k = min((1 - r, 1 - g, 1 - b))
 
         # Handle division by zero in case of black = 1
@@ -190,6 +191,15 @@ class Color(object):
     # Direct coordinate modification properties
     # Getters not necessary, but available should to make API usage straightforward
     #
+
+    # Alpha
+    @property
+    def alpha(self):
+        return self._alpha
+
+    @alpha.setter
+    def alpha(self, value):
+        self.alpha = self._apply_float_bounds(value)
 
     # RGB
     @property
@@ -345,6 +355,10 @@ class Color(object):
 
     def _apply_float_bounds(self, coordinate):
         """Assure coordinate is a float between 0 to 1"""
+        # Skip None for Alpha
+        if coordinate == None:
+            return None
+
         if coordinate < 0.0:
             return 0.0
         elif coordinate > 1.0:
