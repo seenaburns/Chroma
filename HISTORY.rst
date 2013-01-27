@@ -1,6 +1,17 @@
 History
 -------
 
+0.2.0 (In Progress)
+------------------
+- CMYK Support
+- Addative Mixing
+- Comparison (eq, ne)
+- Major Bug Fixes
+  - Hex rounding
+  - Force alpha between 0 and 1
+- Other
+  - ValueError on bad input
+
 0.1.3 (2013-01-01)
 ------------------
 - Direct modification of color coordinates

@@ -41,6 +41,12 @@ Roadmap
 - Color difference
 - Color dectection in images
 
+Contribute
+----------
+Chroma is under active development and could use your support. Even bug reports, feature suggestions and feedback can help push Chroma forward in the right direction.
+
+Chroma is hosted on `Github <https://github.com/seenaburns/Chroma>`_ and there are a number of ideas of where to start in the `issues section <https://github.com/seenaburns/Chroma/issues>`_.
+
 Documentation
 -------------
 Install Chroma with Pip:
