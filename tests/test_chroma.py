@@ -122,6 +122,14 @@ class ChromaTestSuite(unittest.TestCase):
         self.assertEqual("#FFFFFF", chroma.Color("#FFFFFF").additive_mix(chroma.Color("#000000")).hex)
         self.assertEqual(color1.hex, color1.additive_mix(chroma.Color("#000000")).hex)
 
+        # Subtractive mixing
+        self.assertEqual("#DDE5EE", color1.subtractive_mix(color2).hex)
+        self.assertEqual("#F7FBFF", color3.subtractive_mix(color2).hex)
+        self.assertEqual("#888888", color2.subtractive_mix(color3).hex)
+        self.assertEqual("#FFFFFF", chroma.Color("#FFFFFF").subtractive_mix(chroma.Color("#000000")).hex)
+        self.assertEqual("#000000", chroma.Color("#000000").subtractive_mix(chroma.Color("#FFFFFF")).hex)
+
+
 if __name__ == '__main__':
     # Run unit tests
     unittest.main()

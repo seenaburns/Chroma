@@ -163,7 +163,7 @@ class Color(object):
 
     @cmyk.setter
     def cmyk(self, color_value):
-        c, m, y, k = color_value
+        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_value))
         r = 1 - (c * (1 - k)) - k
         g = 1 - (m * (1 - k)) - k
         b = 1 - (y * (1 - k)) - k
@@ -199,7 +199,7 @@ class Color(object):
 
     @alpha.setter
     def alpha(self, value):
-        self.alpha = self._apply_float_bounds(value)
+        self._alpha = self._apply_float_bounds(value)
 
     # RGB
     @property
@@ -307,10 +307,13 @@ class Color(object):
 
     # Additive (Light) Mixing
     def additive_mix(self, other):
-        rgb1 = self.rgb
-        rgb2 = other.rgb
-        rgb_mix = (rgb1[0] + rgb2[0], rgb1[1] + rgb2[1], rgb1[2] + rgb2[2])
+        rgb_mix = tuple([rgb1 + rgb2 for rgb1, rgb2 in zip(self.rgb, other.rgb)])
         return Color(rgb_mix, 'RGB')
+
+    # Subtractive (Dye, Multiplicative) Mixing
+    def subtractive_mix(self, other):
+        cmyk_mix = tuple([cmyk1 - cmyk2 for cmyk1, cmyk2 in zip(self.cmyk, other.cmyk)])
+        return Color(cmyk_mix, 'CMYK')
 
     #
     # INTERNAL
