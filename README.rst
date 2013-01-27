@@ -1,5 +1,5 @@
 Chroma
-------
+======
 
 Chroma is a Python module for handling colors with ease. Chroma supports HEX, RGB, HLS and HSV color coordinates and can seamlessly support alpha.
 
@@ -32,12 +32,12 @@ Currently Supports
 - HSV (float)
 - Alpha
 - Direct modification of Red, Green, Blue, Lightness, Hue, Saturation (HLS, HSV), Value
+- Color mixing: addative, subtractive
 
 Roadmap
 -------
 - Coordinates (sRGB, YIQ, CMYK, and more)
 - Color harmonies: complementary, analogous, triad
-- Color mixing: addative, subtractive
 - Color difference
 - Color dectection in images
 
