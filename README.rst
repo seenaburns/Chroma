@@ -31,7 +31,6 @@ Currently Supports
 - HLS (float)
 - HSV (float)
 - Alpha
-- Direct modification of Red, Green, Blue, Lightness, Hue, Saturation (HLS, HSV), Value
 - Color mixing: addative, subtractive
 
 Roadmap

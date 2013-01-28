@@ -64,16 +64,6 @@ class Color(object):
     def __rsub__(self, other):
         return other.subtractive_mix(self)
 
-    # Override __getattr__ to warn users of Color.saturation property issues
-    def __getattr__(self, name):
-        if name is 'saturation':
-            # Warn user of hls / saturation
-            saturation_warning = 'Color.saturation is ambiguous. Use Color.hls_saturation or Color.hsv_saturation'
-            raise AttributeError(saturation_warning)
-        else:
-            # Default
-            raise AttributeError
-
     # Representation
     def __str__(self):
         return self.hex
@@ -201,11 +191,6 @@ class Color(object):
     def hex(self, color_value):
         self.rgb = self._rgb_from_hex(color_value)
 
-    #
-    # Direct coordinate modification properties
-    # Getters not necessary, but available should to make API usage straightforward
-    #
-
     # Alpha
     @property
     def alpha(self):
@@ -214,105 +199,6 @@ class Color(object):
     @alpha.setter
     def alpha(self, value):
         self._alpha = self._apply_float_bounds(value)
-
-    # RGB
-    @property
-    def red(self):
-        return self.rgb[0]
-
-    @property
-    def green(self):
-        return self.rgb[1]
-
-    @property
-    def blue(self):
-        return self.rgb[2]
-
-    @red.setter
-    def red(self, value):
-        self.rgb = (value, self.rgb[1], self.rgb[2])
-
-    @green.setter
-    def green(self, value):
-        self.rgb = (self.rgb[0], value, self.rgb[2])
-
-    @blue.setter
-    def blue(self, value):
-        self.rgb = (self.rgb[0], self.rgb[1], value)
-
-    # Hue, Saturation, Lightness, Value
-    @property
-    def hue(self):
-        return self.hls[0]
-
-    @property
-    def hls_saturation(self):
-        return self.hls[2]
-
-    @property
-    def hsv_saturation(self):
-        return self.hsv[1]
-
-    @property
-    def lightness(self):
-        return self.hls[1]
-
-    @property
-    def value(self):
-        return self.hsv[2]
-
-    @hue.setter
-    def hue(self, value):
-        self.hls = (value, self.hls[1], self.hls[2])
-
-    @hls_saturation.setter
-    def hls_saturation(self, value):
-        self.hls = (self.hls[0], self.hls[1], value)
-
-    @hsv_saturation.setter
-    def hsv_saturation(self, value):
-        self.hsv = (self.hsv[0], value, self.hsv[2])
-
-    @lightness.setter
-    def lightness(self, value):
-        self.hls = (self.hls[0], value, self.hls[2])
-
-    @value.setter
-    def value(self, value):
-        self.hsv = (self.hsv[0], self.hsv[1], value)
-
-    # Cyan, Magenta, Yellow, Black
-    @property
-    def cyan(self):
-        return self.cmyk[0]
-
-    @property
-    def magenta(self):
-        return self.cmyk[1]
-
-    @property
-    def yellow(self):
-        return self.cmyk[2]
-
-    @property
-    def black(self):
-        return self.cmyk[3]
-
-    @cyan.setter
-    def cyan(self, value):
-        self.cmyk = (value, self.cmyk[1], self.cmyk[2], self.cmyk[3])
-
-    @magenta.setter
-    def magenta(self, value):
-        self.cmyk = (self.cmyk[0], value, self.cmyk[2], self.cmyk[3])
-
-    @yellow.setter
-    def yellow(self, value):
-        self.cmyk = (self.cmyk[0], self.cmyk[1], value, self.cmyk[3])
-
-    @black.setter
-    def black(self, value):
-        self.cmyk = (self.cmyk[0], self.cmyk[1], self.cmyk[2], value)
 
     #
     # Color Functions
