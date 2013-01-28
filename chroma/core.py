@@ -37,6 +37,8 @@ class Color(object):
             self.hls = color_value
         elif format.upper() == 'HSV':
             self.hsv = color_value
+        elif format.upper() == 'CMY':
+            self.cmy = color_value
         elif format.upper() == 'CMYK':
             self.cmyk = color_value
         else:
@@ -145,20 +147,41 @@ class Color(object):
 
         self.rgb = rgb
 
-    # CMYK
+    # CMY / CMYK
+    @property
+    def cmy(self):
+        """
+        CMY: returned in range 0.0 - 1.0
+        CMY is subtractive, e.g. black: (1, 1, 1), white (0, 0, 0)
+        """
+        r, g, b = self.color
+        c = 1 - r
+        m = 1 - g
+        y = 1 - b
+
+        return (c, m, y)
+
+    @cmy.setter
+    def cmy(self, color_value):
+        c, m, y = tuple(map(lambda x: self._apply_float_bounds(x), color_value))[:3]
+        r = 1 - c
+        g = 1 - m
+        b = 1 - y
+        self.rgb = (r, g, b)
+
     @property
     def cmyk(self):
         """CMYK: all returned in range 0.0 - 1.0"""
-        r, g, b = self.color
-        k = min((1 - r, 1 - g, 1 - b))
+        c, m, y = self.cmy
+        k = min(c, m, y)
 
         # Handle division by zero in case of black = 1
         if k != 1:
-            c = (1 - r - k) / (1 - k)
-            m = (1 - g - k) / (1 - k)
-            y = (1 - b - k) / (1 - k)
+            c = (c - k) / (1 - k)
+            m = (m - k) / (1 - k)
+            y = (y - k) / (1 - k)
         else:
-            c, m, y = 0, 0, 0
+            c, m, y = 1, 1, 1
 
         cmyk = (c, m, y, k)
 
@@ -167,11 +190,11 @@ class Color(object):
 
     @cmyk.setter
     def cmyk(self, color_value):
-        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_value))
-        r = 1 - (c * (1 - k)) - k
-        g = 1 - (m * (1 - k)) - k
-        b = 1 - (y * (1 - k)) - k
-        self.rgb = (r, g, b)
+        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_value))[:4]
+        c = c * (1 - k) + k
+        m = m * (1 - k) + k
+        y = y * (1 - k) + k
+        self.cmy = (c, m, y)
 
     # HEX
     @property
