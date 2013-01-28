@@ -235,8 +235,8 @@ class Color(object):
 
     # Subtractive (Dye, Multiplicative) Mixing
     def subtractive_mix(self, other):
-        cmyk_mix = tuple([cmyk1 - cmyk2 for cmyk1, cmyk2 in zip(self.cmyk, other.cmyk)])
-        return Color(cmyk_mix, 'CMYK')
+        cmy_mix = tuple([cmy1 + cmy2 for cmy1, cmy2 in zip(self.cmy, other.cmy)])
+        return Color(cmy_mix, 'CMY')
 
     #
     # INTERNAL
