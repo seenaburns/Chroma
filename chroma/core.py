@@ -50,6 +50,20 @@ class Color(object):
     def __ne__(self, other):
         return not (self == other)
 
+    # Additive / subtractive mixing
+    def __add__(self, other):
+        return self.additive_mix(other)
+
+    def __radd__(self, other):
+        print 'radd'
+        return other.additive_mix(self)
+
+    def __sub__(self, other):
+        return self.subtractive_mix(other)
+
+    def __rsub__(self, other):
+        return other.subtractive_mix(self)
+
     # Override __getattr__ to warn users of Color.saturation property issues
     def __getattr__(self, name):
         if name is 'saturation':
