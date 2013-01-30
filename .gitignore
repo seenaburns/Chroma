@@ -3,3 +3,4 @@ playground.py
 dist
 MANIFEST
 *.pyc
+docs/_build
