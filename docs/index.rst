@@ -35,8 +35,9 @@ Getting started with the power of Chroma is meant to be straightfoward:
     color.alpha = 0.5
     color.hsv    # (0.03333, 0.7143, 0.7, 0.5)
 
-    # Additive mixing
-    mix = color + chroma.Color("#FF00FF")
+    # Color blending
+    color + chroma.Color("#FF00FF")
+    # #FF4DFF
 
 And there you have it. The rest of this document describes Chroma's functionality and usage in detail.
 
@@ -55,45 +56,83 @@ Or if you're an easy_install-er:
 
     easy_install chroma
 
-Chroma does not yet support Python 3, but, if you're interested: :ref:`contribute`
+Chroma does not yet support Python 3, but, if you're interested, see :ref:`contribute`
 
 .. _basic:
+
 Basic Color Tasks
 -----------------
+
+At Chroma's core is the Color object. To create a color object, use the constuctor, which accepts any of the available color systems:
+
+.. function:: chroma.Color([color_value = '#FFFFFF'[, format = 'HEX']])
+    :noindex:
+
+For example, to create a red Color object:
+
+::
+
+    red = chroma.Color((1, 0, 0), 'RGB')
+    red
+    # #FF0000
+
+Color objects can be compared with each other too.
+
+::
+
+    red = chroma.Color('#00FF00')
+    # false
+
+Manipulating Color objects can be easily achieved by using its properties. Every color system has a getter and setter for operating with that system.
+
+::
+
+    red.hls = (10, 0.3, 0.9)
+    red.rgb256
+    # (145, 8, 8)
+
 
 Color Systems
 -------------
 
 .. _rgb:
+
 RGB - Red, Blue, Green
 ----------------------
 
 .. _hex:
+
 HEX - #rrggbb
 -------------
 
 .. _hls:
+
 HLS - Hue, Saturation, Lightness
 --------------------------------
 
 .. _hsv:
+
 HSV - Hue, Saturation, Value
 ----------------------------
 
 .. _cmyk:
+
 CMY and CMYK - Cyan, Magenta, Yellow (and Black)
 ------------------------------------------------
 
 .. _alpha:
+
 Alpha
 -----
 
 
 .. _blending:
+
 Blending (Additive and Subtractive Mixing)
 ------------------------------------------
 
 .. _contribute:
+
 Contribute
 ----------
 Chroma is under active development and could use your support. Even bug reports, feature suggestions and feedback can help push Chroma forward in the right direction.
