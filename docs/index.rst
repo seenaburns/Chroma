@@ -66,7 +66,6 @@ Basic Color Tasks
 At Chroma's core is the Color object. To create a color object, use the constuctor, which accepts any of the available color systems:
 
 .. function:: chroma.Color([color_value = '#FFFFFF'[, format = 'HEX']])
-    :noindex:
 
 For example, to create a red Color object:
 
@@ -80,8 +79,8 @@ Color objects can be compared with each other too.
 
 ::
 
-    red = chroma.Color('#00FF00')
-    # false
+    red != chroma.Color('#00FF00')
+    # True
 
 Manipulating Color objects can be easily achieved by using its properties. Every color system has a getter and setter for operating with that system.
 
@@ -95,10 +94,28 @@ Manipulating Color objects can be easily achieved by using its properties. Every
 Color Systems
 -------------
 
+Working with multiple color systems can be done using the getter and setter properties for each system.
+
+Interally, colors are stored in rgb float format.
+
 .. _rgb:
 
 RGB - Red, Blue, Green
 ----------------------
+
+.. image:: _static/rgb_cube.png
+
+RGB (Red, Blue, Green) is very common color representation in digital systems.
+
+Chroma provides properties for RGB in both float and 256 tuple format. Color.rgb outputs float coordinates, ranging from 0 to 1, where 1 is white. Color.rgb256 outputs integer coordinates ranging from 0 to 255, where 255 is white.
+
+If :ref:`Alpha` is active, rgb and rgb256 will output a 4th coordinate in floating point representation.
+
+.. function:: chroma.Color.rgb
+.. function:: chroma.Color.rgb(color_tuple)
+
+.. function:: chroma.Color.rgb256
+.. function:: chroma.Color.rgb256(color_tuple)
 
 .. _hex:
 
