@@ -15,7 +15,7 @@ Features
 - :ref:`blending`
 
 Quickstart
-----------
+==========
 
 Getting started with the power of Chroma is meant to be straightfoward:
 
@@ -61,7 +61,7 @@ Chroma does not yet support Python 3, but, if you're interested, see :ref:`contr
 .. _basic:
 
 Basic Color Tasks
------------------
+=================
 
 At Chroma's core is the Color object. To create a color object, use the constuctor, which accepts any of the available color systems:
 
@@ -92,7 +92,7 @@ Manipulating Color objects can be easily achieved by using its properties. Every
 
 
 Color Systems
--------------
+=============
 
 Working with multiple color systems can be done using the getter and setter properties for each system.
 
@@ -193,22 +193,28 @@ To turn off alpha, set it's value to None.
 .. _blending:
 
 Blending (Additive and Subtractive Mixing)
-------------------------------------------
+==========================================
 
 .. _additive:
 
 Additive (Light) Mixing
 -----------------------
 
+Additive mixing is a form of color blending that involves adding RGB values to create a lighter color mix from the two.
+
 .. _subtractive:
 
 Subtractive (Dye) Mixing
 ------------------------
 
+Subtractive mixing can be thought of as taking a white light and overlaying color filters to 'subtract' colors from the light. The remaining light is the subtractive mix.
+
+Programmatically it involves the difference of CMY values.
+
 .. _contribute:
 
 Contribute
-----------
+==========
 Chroma is under active development and could use your support. Even bug reports, feature suggestions and feedback can help push Chroma forward in the right direction.
 
 Chroma is hosted on `Github <https://github.com/seenaburns/Chroma>`_ and there are a number of ideas of where to start in the `issues section <https://github.com/seenaburns/Chroma/issues>`_.
