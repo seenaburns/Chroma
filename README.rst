@@ -9,6 +9,7 @@ Before you ask, Chroma is BSD licensed, available on `Github <https://github.com
 
 Features
 --------
+
 - Hex (#rrggbb, #rrggbbaa)
 - RGB
 - HLS
@@ -19,6 +20,7 @@ Features
 
 Roadmap
 -------
+
 - Coordinates (sRGB, YIQ, CIE, LAB and more)
 - Color harmonies: complementary, analogous, triad
 - Color difference
@@ -27,8 +29,7 @@ Roadmap
 Quickstart
 ==========
 
-Getting started with the power of Chroma is meant to be straightfoward:
-
+Getting started with the power of Chroma is meant to be straightfoward
 ::
 
     import chroma
@@ -54,14 +55,12 @@ And there you have it. The `Documenation <https://chroma.readthedocs.org/en/late
 Installation
 ------------
 
-Installation is as easy as:
-
+Installation is as easy as
 ::
 
     pip install chroma
 
-Or if you're an easy_install-er:
-
+Or if you're an easy_install-er
 ::
 
     easy_install chroma
@@ -69,7 +68,8 @@ Or if you're an easy_install-er:
 Chroma does not yet support Python 3, but, if you're interested, contribute!
 
 Contribute
-----------
+==========
+
 Chroma is under active development and could use your support. Even bug reports, feature suggestions and feedback can help push Chroma forward in the right direction.
 
 Chroma is hosted on `Github <https://github.com/seenaburns/Chroma>`_ and there are a number of ideas of where to start in the `issues section <https://github.com/seenaburns/Chroma/issues>`_.
