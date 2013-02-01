@@ -25,6 +25,10 @@ class ChromaTestSuite(unittest.TestCase):
         self.c2 = chroma.Color('#446688')
         self.c3 = chroma.Color('#555555')
 
+    def assertTupleAlmostEqual(self, t1, t2):
+        for x, y in zip(t1, t2):
+            self.assertEqual(round(x - y, 2), 0)
+
     def test_color_initialization(self):
         """Test construction of color object"""
 
@@ -53,7 +57,23 @@ class ChromaTestSuite(unittest.TestCase):
 
     def test_system_conversion(self):
         """Test conversion between systems"""
-        pass
+
+        # Use Wolfram Alpha as external reference
+        # Everything -> RGB
+        self.assertTupleAlmostEqual(chroma.Color((0.2, 0.3333, 0.4667), 'RGB').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((51, 85, 119), 'RGB256').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((210, 0.3333, 0.40), 'HLS').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((210, 0.57, 0.466), 'HSV').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((0.8, 0.67, 0.53), 'CMY').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((0.57, 0.29, 0, 0.53), 'CMYK').rgb, self.c1.rgb)
+
+        # RGB -> Everything
+        self.assertTupleAlmostEqual(chroma.Color((0.2, 0.3333, 0.4667), 'RGB').rgb, self.c1.rgb)
+        self.assertTupleAlmostEqual(chroma.Color((51, 85, 119), 'RGB256').rgb256, self.c1.rgb256)
+        self.assertTupleAlmostEqual(chroma.Color((210, 0.3333, 0.40), 'HLS').hls, self.c1.hls)
+        self.assertTupleAlmostEqual(chroma.Color((210, 0.57, 0.466), 'HSV').hsv, self.c1.hsv)
+        self.assertTupleAlmostEqual(chroma.Color((0.8, 0.67, 0.53), 'CMY').cmy, self.c1.cmy)
+        self.assertTupleAlmostEqual(chroma.Color((0.57, 0.29, 0, 0.53), 'CMYK').cmyk, self.c1.cmyk)
 
     def test_bad_input(self):
         """Test input that goes beyond color system bounds"""

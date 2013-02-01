@@ -57,7 +57,6 @@ class Color(object):
         return self.additive_mix(other)
 
     def __radd__(self, other):
-        print 'radd'
         return other.additive_mix(self)
 
     def __sub__(self, other):
@@ -112,11 +111,13 @@ class Color(object):
         """
         r, g, b = self.color
         hls = colorsys.rgb_to_hls(r, g, b)
+        hls = (int(round(hls[0] * 360)), hls[1], hls[2])
         return self._append_alpha_if_necessary(hls)
 
     @hls.setter
     def hls(self, color_tuple):
         h, l, s = color_tuple[:3]
+        h = h / 360.0
         rgb = colorsys.hls_to_rgb(h, l, s)
 
         # Append alpha if included
@@ -134,11 +135,13 @@ class Color(object):
         """
         r, g, b = self.color
         hsv = colorsys.rgb_to_hsv(r, g, b)
+        hsv = (int(round(hsv[0] * 360)), hsv[1], hsv[2])
         return self._append_alpha_if_necessary(hsv)
 
     @hsv.setter
     def hsv(self, color_tuple):
         h, s, v = color_tuple[:3]
+        h = h / 360.0
         rgb = colorsys.hsv_to_rgb(h, s, v)
 
         # Append alpha if included
