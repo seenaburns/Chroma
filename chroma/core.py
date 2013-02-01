@@ -86,8 +86,8 @@ class Color(object):
 
     @property
     def rgb256(self):
-        rgb = self._append_alpha_if_necessary(self.color)
-        return tuple(map(lambda x: int(round(x*255)), rgb))
+        rgb256 = tuple(map(lambda x: int(round(x*255)), self.color))
+        return self._append_alpha_if_necessary(rgb256)
 
     @rgb.setter
     def rgb(self, color_tuple):
