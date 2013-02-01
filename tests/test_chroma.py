@@ -21,85 +21,84 @@ import chroma
 
 class ChromaTestSuite(unittest.TestCase):
     def setUp(self):
-        self.c = chroma.Color()
+        self.c1 = chroma.Color('#335577')
+        self.c2 = chroma.Color('#446688')
+        self.c3 = chroma.Color('#555555')
 
     def test_color_initialization(self):
-        """
-        Test construction (and setters) of color object with all formats
-        Compare against known rgb256 conversion
-        """
-        rgb256_value = (85,119,153)
-        # Default format
-        self.assertEqual(chroma.Color('#557799').rgb256, rgb256_value)
-        # HEX
-        self.assertEqual(chroma.Color('#557799', 'HEX').rgb256, rgb256_value)
-        # RGB
-        self.assertEqual(chroma.Color((0.333, 0.465, 0.6), 'RGB').rgb256, rgb256_value)
-        # RGB256
-        self.assertEqual(chroma.Color((85, 119, 153), 'RGB256').rgb256, rgb256_value)
-        # HLS
-        self.assertEqual(chroma.Color((0.583, 0.467, 0.286), 'HLS').rgb256, rgb256_value)
-        # HSV
-        self.assertEqual(chroma.Color((0.583, 0.444, 0.60), 'HSV').rgb256, rgb256_value)
-        # CMYK
-        self.assertEqual(chroma.Color((0.4444, 0.22, 0, 0.4), 'CMYK').rgb256, rgb256_value)
-        # Error
-        self.assertRaises(ValueError, chroma.Color, (210, 44, 60), 'ERROR')
+        """Test construction of color object"""
+
+        white = chroma.Color('#FFFFFF').hex
+
+        self.assertEqual(chroma.Color((1,1,1), 'RGB').hex, white)
+        self.assertEqual(chroma.Color((255, 255, 255), 'RGB256').hex, white)
+        self.assertEqual(chroma.Color((0, 1, 1), 'HLS').hex, white)
+        self.assertEqual(chroma.Color((0, 0, 1), 'HSV').hex, white)
+        self.assertEqual(chroma.Color((0, 0, 0, 0), 'CMY').hex, white)
+        self.assertEqual(chroma.Color((0, 0, 0, 0), 'CMYK').hex, white)
+
+        # Test ValueError too
+        self.assertRaises(ValueError, chroma.Color, (0, 0, 0), 'ERROR')
 
     def test_comparison_methods(self):
-        """
-        Test equality and inequality magic methods
-        """
-        color1 = chroma.Color('#FF0000')
-        color2 = chroma.Color('#557799')
-        color3 = chroma.Color((85,119,153), 'RGB256')
+        """Test equality and inequality"""
 
         # Equality
-        self.assertFalse(color1 == color2)
-        self.assertTrue(color2 == color3)
+        self.assertFalse(self.c1 == self.c2)
+        self.assertTrue(self.c1 == chroma.Color('#335577'))
 
         # Inequality
-        self.assertTrue(color1 != color2)
-        self.assertFalse(color2 != color3)
+        self.assertTrue(self.c1 != self.c2)
+        self.assertFalse(self.c1 != chroma.Color('#335577'))
+
+    def test_system_conversion(self):
+        """Test conversion between systems"""
+        pass
 
     def test_alpha(self):
-        """
-        Test alpha support with various formats
-        """
-        rgb256_value = (85,119,153)
-        rgba256_value = (85,119,153, 255)
-        alpha_value = 1.0
+        """Test alpha support / no-support with various color systems"""
+        alpha_value = 0.5
+        hex_value = self.c1.hex + '80'
 
-        self.assertEqual(self.c.alpha, None)
-        self.c.rgb256 = rgba256_value
-        self.assertEqual(self.c.alpha, alpha_value)
-        self.assertEqual(self.c.hsv[3], alpha_value)
-        self.c.alpha = None
-        self.assertEqual(self.c.rgb256, rgb256_value)
-        self.assertEqual(len(self.c.hls), 3)
-        self.c = chroma.Color('#557799FF')
-        self.assertEqual(self.c.rgb256, rgba256_value)
+        # Test off
+        self.assertEqual(self.c1.alpha, None)
 
-    def test_color_functions(self):
-        """
-        Test color functions:
-            - Additive (Light) Mixing
+        self.c1.alpha = alpha_value
 
-        Note: Wolfram Alpha used as reference for expected outputs
-        """
-        color1 = chroma.Color("#335577")
-        color2 = chroma.Color("#446688")
-        color3 = chroma.Color("#77BBFF")
+        # Test color systems
+        # Test if it is there, and the value is still correct
+        self.assertEqual(self.c1.alpha, alpha_value)
+        self.assertEqual(self.c1.hex, hex_value)
+        self.assertEqual(self.c1.rgb[3], alpha_value)
+        self.assertEqual(self.c1.rgb256[3], alpha_value)
+        self.assertEqual(self.c1.hls[3], alpha_value)
+        self.assertEqual(self.c1.hsv[3], alpha_value)
+
+        # Test no alpha
+        self.assertEqual(len(self.c1.cmy), 3)
+        self.assertEqual(len(self.c1.cmyk), 4)
+
+        # Test off after
+        self.c1.alpha = None
+        self.assertEqual(self.c1.alpha, None)
+        self.assertEqual(len(self.c1.hex), 7)
+        self.assertEqual(len(self.c1.rgb), 3)
+        self.assertEqual(len(self.c1.rgb256), 3)
+        self.assertEqual(len(self.c1.hls), 3)
+        self.assertEqual(len(self.c1.hsv), 3)
+
+    def test_color_blending(self):
+        """Test additive and subtractive mixing"""
 
         # Additive mixing
-        self.assertEqual("#77BBFF", color1.additive_mix(color2).hex)
-        self.assertEqual("#BBFFFF", color3.additive_mix(color2).hex)
-        self.assertEqual("#FFFFFF", chroma.Color("#FFFFFF").additive_mix(chroma.Color("#000000")).hex)
-        self.assertEqual(color1.hex, color1.additive_mix(chroma.Color("#000000")).hex)
+        self.assertEqual(chroma.Color("#77BBFF"), self.c1 + self.c2)
+        self.assertEqual(chroma.Color("#99BBDD"), self.c3 + self.c2)
+        self.assertEqual(chroma.Color("#FFFFFF"), chroma.Color("#FFFFFF") + chroma.Color("#000000"))
+        self.assertEqual(self.c1, self.c1 + chroma.Color("#000000"))
 
         # Subtractive mixing
-        self.assertEqual("#FFFF00", chroma.Color("#FFFFFF").subtractive_mix(chroma.Color("#FFFF00")).hex)
-        self.assertEqual("#00FF00", (chroma.Color("#FFFF00") - chroma.Color("#00FFFF")).hex)
+        self.assertEqual(chroma.Color("#FFFF00"), chroma.Color("#FFFFFF") - chroma.Color("#FFFF00"))
+        self.assertEqual(chroma.Color("#00FF00"), chroma.Color("#FFFF00") - chroma.Color("#00FFFF"))
 
 
 if __name__ == '__main__':
