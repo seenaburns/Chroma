@@ -7,7 +7,7 @@ History
 (Breaks backwards compatibility)
 
 - CMY, CMYK Support
-- Color Blending (Addative and Subtractive Mixing)
+- Color Blending (Additive and Subtractive Mixing)
 - Comparison (eq, ne)
 - Remove color coordinate properties (direct modification)
 

@@ -3,7 +3,7 @@ Chroma Documentation
 
 Chroma is a Python module for handling colors with ease.
 
-Manipulating colors can quickily escalate into a tedious and complicated task, particularly when you become concerned with color systems beyond RGB. Chroma is here to provide a simple API to do the heavy lifting, so that you can stay focused on the important parts of your projects.
+Manipulating colors can quickly escalate into a tedious and complicated task, particularly when you become concerned with color systems beyond RGB. Chroma is here to provide a simple API to do the heavy lifting, so that you can stay focused on the important parts of your projects.
 
 Before you ask, Chroma is BSD licensed, available on `Github <https://github.com/seenaburns/Chroma>`_ and PyPI.
 
@@ -17,7 +17,7 @@ Features
 Quickstart
 ==========
 
-Getting started with the power of Chroma is meant to be straightfoward:
+Getting started with the power of Chroma is meant to be straightforward:
 
 ::
 
@@ -63,7 +63,7 @@ Chroma does not yet support Python 3, but, if you're interested, see :ref:`contr
 Basic Color Tasks
 =================
 
-At Chroma's core is the Color object. To create a color object, use the constuctor, which accepts any of the available color systems:
+At Chroma's core is the Color object. To create a color object, use the constructor, which accepts any of the available color systems:
 
 .. function:: chroma.Color([color_value = '#FFFFFF'[, format = 'HEX']])
 
@@ -96,7 +96,7 @@ Color Systems
 
 Working with multiple color systems can be done using the getter and setter properties for each system.
 
-Interally, colors are stored in rgb float format.
+Internally, colors are stored in rgb float format.
 
 .. _rgb:
 
@@ -170,7 +170,7 @@ CMY and CMYK - Cyan, Magenta, Yellow (and Black)
 
 Chroma supports both CMY and CMYK input and output. CMY and CMYK are both in floating point form, ranging from 0 - 1, but are subtractive color models. This means, (1, 1, 1) represents black (not white) in CMY.
 
-Unlike RGB, alpha will not be appened.
+Unlike RGB, alpha will not be appended.
 
 .. function:: chroma.Color.cmy
 .. function:: chroma.Color.cmy(color_tuple)
@@ -209,7 +209,7 @@ Subtractive (Dye) Mixing
 
 Subtractive mixing can be thought of as taking a white light and overlaying color filters to 'subtract' colors from the light. The remaining light is the subtractive mix.
 
-Programmatically it involves the difference of CMY values.
+Specifically, it involves the difference of CMY values.
 
 .. _contribute:
 

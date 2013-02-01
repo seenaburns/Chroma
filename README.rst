@@ -3,7 +3,7 @@ Chroma
 
 Chroma is a Python module for handling colors with ease.
 
-Manipulating colors can quickily escalate into a tedious and complicated task, particularly when you become concerned with color systems beyond RGB. Chroma is here to provide a simple API to do the heavy lifting, so that you can stay focused on the important parts of your projects.
+Manipulating colors can quickly escalate into a tedious and complicated task, particularly when you become concerned with color systems beyond RGB. Chroma is here to provide a simple API to do the heavy lifting, so that you can stay focused on the important parts of your projects.
 
 Before you ask, Chroma is BSD licensed, available on `Github <https://github.com/seenaburns/Chroma>`_ and PyPI.
 
@@ -16,7 +16,7 @@ Features
 - HSV
 - CMY, CMYK
 - Alpha
-- Color Blending: addative and subtractive mixing
+- Color Blending: additive and subtractive mixing
 
 Roadmap
 -------
@@ -24,12 +24,12 @@ Roadmap
 - Coordinates (sRGB, YIQ, CIE, LAB and more)
 - Color harmonies: complementary, analogous, triad
 - Color difference
-- Color dectection in images
+- Color detection in images
 
 Quickstart
 ==========
 
-Getting started with the power of Chroma is meant to be straightfoward
+Getting started with the power of Chroma is meant to be straightforward
 ::
 
     import chroma
@@ -50,7 +50,7 @@ Getting started with the power of Chroma is meant to be straightfoward
     color + chroma.Color("#FF00FF")
     # #FF4DFF
 
-And there you have it. The `Documenation <https://chroma.readthedocs.org/en/latest/>`_ describes Chroma's functionality and usage in detail.
+And there you have it. The `documentation <https://chroma.readthedocs.org/en/latest/>`_ describes Chroma's functionality and usage in detail.
 
 Installation
 ------------
