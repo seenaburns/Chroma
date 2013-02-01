@@ -1,16 +1,22 @@
 History
 -------
 
-0.2.0 (In Progress)
+0.2.0 (2013-02-01)
 ------------------
-- CMYK Support
-- Addative Mixing
+(Breaks backwards compatibility)
+- CMY, CMYK Support
+- Color Blending (Addative and Subtractive Mixing)
 - Comparison (eq, ne)
+- Remove color coordinate properties (direct modification)
 - Major Bug Fixes
   - Hex rounding
   - Force alpha between 0 and 1
 - Other
+  - Hue (HLS, HSV) in degrees not percent of degrees
+  - RGB256 alpha in range 0-1, not 0-255
+  - Force Hex to output in uppercase
   - ValueError on bad input
+  - Extensive documentation on Read the Docs
 
 0.1.3 (2013-01-01)
 ------------------

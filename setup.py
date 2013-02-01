@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Chroma',
-    version='0.1.3',
+    version='0.2.0',
     author='Seena Burns',
     author_email='hello@seenaburns.com',
     url='https://github.com/seenaburns/Chroma',
