@@ -55,6 +55,10 @@ class ChromaTestSuite(unittest.TestCase):
         """Test conversion between systems"""
         pass
 
+    def test_bad_input(self):
+        """Test input that goes beyond color system bounds"""
+        pass
+
     def test_alpha(self):
         """Test alpha support / no-support with various color systems"""
         alpha_value = 0.5
@@ -102,5 +106,4 @@ class ChromaTestSuite(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # Run unit tests
     unittest.main()
