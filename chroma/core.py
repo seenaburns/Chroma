@@ -116,8 +116,9 @@ class Color(object):
 
     @hls.setter
     def hls(self, color_tuple):
-        h, l, s = color_tuple[:3]
-        h = h / 360.0
+        h, l, s = (self._apply_float_bounds(color_tuple[0]/360.0),
+                   self._apply_float_bounds(color_tuple[1]),
+                   self._apply_float_bounds(color_tuple[2]))
         rgb = colorsys.hls_to_rgb(h, l, s)
 
         # Append alpha if included
@@ -140,8 +141,9 @@ class Color(object):
 
     @hsv.setter
     def hsv(self, color_tuple):
-        h, s, v = color_tuple[:3]
-        h = h / 360.0
+        h, s, v = (self._apply_float_bounds(color_tuple[0]/360.0),
+                   self._apply_float_bounds(color_tuple[1]),
+                   self._apply_float_bounds(color_tuple[2]))
         rgb = colorsys.hsv_to_rgb(h, s, v)
 
         # Append alpha if included
@@ -165,8 +167,8 @@ class Color(object):
         return (c, m, y)
 
     @cmy.setter
-    def cmy(self, color_value):
-        c, m, y = tuple(map(lambda x: self._apply_float_bounds(x), color_value))[:3]
+    def cmy(self, color_tuple):
+        c, m, y = tuple(map(lambda x: self._apply_float_bounds(x), color_tuple))[:3]
         r = 1 - c
         g = 1 - m
         b = 1 - y
@@ -192,8 +194,8 @@ class Color(object):
         return tuple(map(lambda x: self._apply_float_bounds(x), cmyk))
 
     @cmyk.setter
-    def cmyk(self, color_value):
-        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_value))[:4]
+    def cmyk(self, color_tuple):
+        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_tuple))[:4]
         c = c * (1 - k) + k
         m = m * (1 - k) + k
         y = y * (1 - k) + k

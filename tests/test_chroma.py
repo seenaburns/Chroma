@@ -77,7 +77,21 @@ class ChromaTestSuite(unittest.TestCase):
 
     def test_bad_input(self):
         """Test input that goes beyond color system bounds"""
-        pass
+        # Upper bound
+        self.assertEqual(chroma.Color((10, -3, 0.5), 'RGB').rgb, chroma.Color((1, 0, 0.5), 'RGB').rgb)
+        self.assertEqual(chroma.Color((300, -3, 50), 'RGB256').rgb256, chroma.Color((255, 0, 50), 'RGB256').rgb256)
+        self.assertEqual(chroma.Color((400, -3, 10), 'HLS').hls, chroma.Color((360, 0, 1), 'HLS').hls)
+        self.assertEqual(chroma.Color((-10, 40, -1), 'HLS').hls, chroma.Color((0, 1, 0), 'HLS').hls)
+        self.assertEqual(chroma.Color((400, -3, 10), 'HSV').hsv, chroma.Color((360, 0, 1), 'HSV').hsv)
+        self.assertEqual(chroma.Color((-10, 40, -1), 'HSV').hsv, chroma.Color((0, 1, 0), 'HSV').hsv)
+        self.assertEqual(chroma.Color((10, -3, 0.5), 'CMY').cmy, chroma.Color((1, 0, 0.5), 'CMY').cmy)
+        self.assertEqual(chroma.Color((10, -3, 0.5, 3), 'CMYK').cmyk, chroma.Color((1, 0, 0.5, 1), 'CMYK').cmyk)
+
+        # Test alpha
+        self.c1.rgb = (10, -1, 0.5, 10)
+        self.assertEqual(self.c1.rgb, (1, 0, 0.5, 1))
+        self.c1.rgb = (10, -1, 0.5, -10)
+        self.assertEqual(self.c1.rgb, (1, 0, 0.5, 0))
 
     def test_alpha(self):
         """Test alpha support / no-support with various color systems"""
