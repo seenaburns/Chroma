@@ -100,7 +100,7 @@ class Color(object):
 
     @rgb256.setter
     def rgb256(self, color_tuple):
-        self.rgb = map(lambda x: x / 255.0, color_tuple)
+        self.rgb = tuple(map(lambda x: x / 255.0, color_tuple))
 
     # HLS
     @property
@@ -302,7 +302,7 @@ class Color(object):
                 rgb += (int(hex_value[6:8], 16) / 255.0,)
 
             return rgb
-        except Exception, e:
+        except Exception as e:
             raise ValueError('Invalid Hex Input: %s' % (color_value))
 
     def _float_to_hex(self, float_value):
@@ -334,4 +334,3 @@ class Color(object):
         if self.alpha is not None:
             return color_tuple + (self.alpha,)
         return color_tuple
-
