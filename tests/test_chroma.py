@@ -138,6 +138,18 @@ class ChromaTestSuite(unittest.TestCase):
         self.assertEqual(chroma.Color("#FFFF00"), chroma.Color("#FFFFFF") - chroma.Color("#FFFF00"))
         self.assertEqual(chroma.Color("#00FF00"), chroma.Color("#FFFF00") - chroma.Color("#00FFFF"))
 
+    def test_color_blending_with_alpha(self):
+        """Test additive mixing with alpha channels"""
+        tc1 = chroma.Color("#000000")
+        tc1.alpha = 1.0
+        tc2 = chroma.Color("#FF0000")
+        tc2.alpha = 0.5
+        self.assertEqual(chroma.Color("#800000FF"), tc1+tc2)
+        self.assertEqual(chroma.Color("#000000FF"), tc2+tc1)
+        tc1.alpha = None
+        self.assertEqual(chroma.Color("#800000FF"), tc1+tc2)
+        self.assertEqual(chroma.Color("#000000FF"), tc2+tc1)
+
 
 if __name__ == '__main__':
     unittest.main()

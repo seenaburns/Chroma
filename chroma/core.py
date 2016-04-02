@@ -235,13 +235,45 @@ class Color(object):
 
     # Additive (Light) Mixing
     def additive_mix(self, other):
-        rgb_mix = tuple([rgb1 + rgb2 for rgb1, rgb2 in zip(self.rgb, other.rgb)])
-        return Color(rgb_mix, 'RGB')
+        if self.alpha is None and other.alpha is None:
+            # The old naive mix
+            rgb_mix = tuple([rgb1 + rgb2 for rgb1, rgb2 in zip(self.rgb, other.rgb)])
+            return Color(rgb_mix, 'RGB')
+
+        restore_self_alpha = self.alpha
+        if self.alpha is None:
+            self.alpha = 1.0
+
+        restore_other_alpha = other.alpha
+        if other.alpha is None:
+            other.alpha = 1.0
+
+        out = Color()
+        # https://en.wikipedia.org/wiki/Alpha_compositing#Alpha_blending
+        dst = other
+        src = self
+        out.alpha = dst.alpha + src.alpha * (1.0 - dst.alpha)
+        if out.alpha == 0:
+            out.rgb = (0,0,0)
+            dst.alpha = restore_self_alpha
+            src.alpha = restore_other_alpha
+            return out
+
+        outrgb = list(out.rgb)
+        for ch in range(3):
+            outrgb[ch] = (dst.rgb[ch]*dst.alpha + src.rgb[ch]*src.alpha*(1.0 - dst.alpha)) / out.alpha
+        out.rgb = tuple(outrgb)
+
+        self.alpha = restore_self_alpha
+        other.alpha = restore_other_alpha
+        return out
 
     # Subtractive (Dye, Multiplicative) Mixing
     def subtractive_mix(self, other):
-        cmy_mix = tuple([cmy1 + cmy2 for cmy1, cmy2 in zip(self.cmy, other.cmy)])
-        return Color(cmy_mix, 'CMY')
+        if self.alpha is None and other.alpha is None:
+            cmy_mix = tuple([cmy1 + cmy2 for cmy1, cmy2 in zip(self.cmy, other.cmy)])
+            return Color(cmy_mix, 'CMY')
+        raise NotImplementedError("Alpha not supported for mixing")
 
     #
     # INTERNAL
