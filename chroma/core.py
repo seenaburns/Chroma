@@ -85,7 +85,7 @@ class Color(object):
 
     @property
     def rgb256(self):
-        rgb256 = tuple(map(lambda x: int(round(x*255)), self.color))
+        rgb256 = tuple([int(round(x*255)) for x in self.color])
         return self._append_alpha_if_necessary(rgb256)
 
     @rgb.setter
@@ -100,7 +100,7 @@ class Color(object):
 
     @rgb256.setter
     def rgb256(self, color_tuple):
-        self.rgb = map(lambda x: x / 255.0, color_tuple)
+        self.rgb = [x / 255.0 for x in color_tuple]
 
     # HLS
     @property
@@ -168,7 +168,7 @@ class Color(object):
 
     @cmy.setter
     def cmy(self, color_tuple):
-        c, m, y = tuple(map(lambda x: self._apply_float_bounds(x), color_tuple))[:3]
+        c, m, y = tuple([self._apply_float_bounds(x) for x in color_tuple])[:3]
         r = 1 - c
         g = 1 - m
         b = 1 - y
@@ -191,11 +191,11 @@ class Color(object):
         cmyk = (c, m, y, k)
 
         # Apply bound and return
-        return tuple(map(lambda x: self._apply_float_bounds(x), cmyk))
+        return tuple([self._apply_float_bounds(x) for x in cmyk])
 
     @cmyk.setter
     def cmyk(self, color_tuple):
-        c, m, y, k = tuple(map(lambda x: self._apply_float_bounds(x), color_tuple))[:4]
+        c, m, y, k = tuple([self._apply_float_bounds(x) for x in color_tuple])[:4]
         c = c * (1 - k) + k
         m = m * (1 - k) + k
         y = y * (1 - k) + k
@@ -270,7 +270,7 @@ class Color(object):
                 rgb += (int(hex_value[6:8], 16) / 255.0,)
 
             return rgb
-        except Exception, e:
+        except Exception as e:
             raise ValueError('Invalid Hex Input: %s' % (color_value))
 
     def _float_to_hex(self, float_value):
