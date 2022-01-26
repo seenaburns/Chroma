@@ -270,7 +270,7 @@ class Color(object):
                 rgb += (int(hex_value[6:8], 16) / 255.0,)
 
             return rgb
-        except Exception, e:
+        except Exception as e:
             raise ValueError('Invalid Hex Input: %s' % (color_value))
 
     def _float_to_hex(self, float_value):
